@@ -46,6 +46,8 @@ Plugin 'jez/vim-c0'
 Plugin 'jez/vim-ispc'
 Plugin 'kchmck/vim-coffee-script'
 
+Plugin 'LucHermitte/lh-vim-lib'
+Plugin 'LucHermitte/VimFold4C'
 " ---- Extras/Advanced plugins ----------------------------------------
 " Highlight and strip trailing whitespace
 "Plugin 'ntpeters/vim-better-whitespace'
@@ -79,6 +81,16 @@ syntax on
 
 set colorcolumn=80
 set mouse=a
+
+let g:fold_options = {
+   \'fold_blank': 0,
+   \'fold_includes': 0,
+   \'max_foldline_length': 'win',
+   \'merge_comments' : 1,
+   \'show_if_and_else': 1,
+   \'strip_namespaces': 1,
+   \'strip_template_arguments': 1
+   \ }
 
 "let g:indent_guides_enable_on_vim_startup = 1
 " We need this for plugins like Syntastic and vim-gitgutter which put symbols
@@ -117,6 +129,9 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Use the solarized theme for the Airline status bar
 let g:airline_theme='solarized'
+
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
 
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
