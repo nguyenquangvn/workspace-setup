@@ -46,8 +46,6 @@ Plugin 'jez/vim-c0'
 Plugin 'jez/vim-ispc'
 Plugin 'kchmck/vim-coffee-script'
 
-Plugin 'LucHermitte/lh-vim-lib'
-Plugin 'LucHermitte/VimFold4C'
 " ---- Extras/Advanced plugins ----------------------------------------
 " Highlight and strip trailing whitespace
 "Plugin 'ntpeters/vim-better-whitespace'
@@ -81,16 +79,6 @@ syntax on
 
 set colorcolumn=80
 set mouse=a
-
-let g:fold_options = {
-   \'fold_blank': 0,
-   \'fold_includes': 0,
-   \'max_foldline_length': 'win',
-   \'merge_comments' : 1,
-   \'show_if_and_else': 1,
-   \'strip_namespaces': 1,
-   \'strip_template_arguments': 1
-   \ }
 
 "let g:indent_guides_enable_on_vim_startup = 1
 " We need this for plugins like Syntastic and vim-gitgutter which put symbols
@@ -130,8 +118,6 @@ let g:airline#extensions#tabline#enabled = 1
 " Use the solarized theme for the Airline status bar
 let g:airline_theme='solarized'
 
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
 
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
@@ -185,3 +171,38 @@ augroup END
 " better man page support
 noremap K :SuperMan <cword><CR>
 
+if has("cscope")
+    set csprg=/usr/bin/cscope
+    set csto=0
+    set cst
+    set csverb
+    " C symbol
+    nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+    " definition
+    nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+    " functions that called by this function
+    nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+    " funtions that calling this function
+    nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+    " test string
+    nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+    " egrep pattern
+    nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+    " file
+    nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+    " files #including this file
+    nmap <C-\>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+
+    " Automatically make cscope connections
+    function! LoadCscope()
+        let db = findfile("cscope.out", ".;")
+        if (!empty(db))
+            let path = strpart(db, 0, match(db, "/cscope.out$"))
+            set nocscopeverbose " suppress 'duplicate connection' error
+            exe "cs add " . db . " " . path
+            set cscopeverbose
+        endif
+    endfunction
+    au BufEnter /* call LoadCscope()
+
+endif
