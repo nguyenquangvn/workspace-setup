@@ -9,6 +9,7 @@ Instructions:
 5. Install  ctags
 6. Install cdargs
 7. Install toolchain and add toolchain to PATH
+8. Install openocd
 8. Copy gitconfig global and local file
 9. Cop gdbinit global and local file
 10. Enjoy !
