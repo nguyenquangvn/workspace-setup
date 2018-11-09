@@ -1,0 +1,3 @@
+[submodule "code-checker/lint/code-checker/lint/aloa"]
+	path = code-checker/lint/code-checker/lint/aloa
+	url = https://github.com/ralfholly/aloa.git
