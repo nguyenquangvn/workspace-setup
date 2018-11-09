@@ -1,0 +1,4 @@
+https://github.com/AlDanial/cloc
+
+#fedora 
+sudo dnf install cloc
