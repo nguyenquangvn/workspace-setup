@@ -12,4 +12,5 @@ Instructions:
 8. Install openocd
 8. Copy gitconfig global and local file
 9. Cop gdbinit global and local file
-10. Enjoy !
+10. Install aloa, pc-lint tool, use gcclint tool to lint the code
+11. Enjoy !
