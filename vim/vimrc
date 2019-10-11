@@ -9,6 +9,15 @@ set nocompatible
 
 filetype off
 
+" For everything else, use a tab width of 4 space chars.
+set tabstop=8       " The width of a TAB is set to 4.
+                    " Still it is a \t. It is just that
+                    " Vim will interpret it to be having
+                    " a width of 4.
+set shiftwidth=8    " Indents will have a width of 4.
+set softtabstop=8   " Sets the number of columns for a TAB.
+set expandtab       " Expand TABs to spaces.
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -209,3 +218,18 @@ if has("cscope")
     au BufEnter /* call LoadCscope()
 
 endif
+
+" Only do this part when compiled with support for autocommands.
+if has("autocmd")
+    " Use filetype detection and file-based automatic indenting.
+    filetype plugin indent on
+
+    " Use actual tab chars in Makefiles.
+    autocmd FileType make set tabstop=8 shiftwidth=8 softtabstop=0 noexpandtab
+endif
+
+" resize current buffer by +/- 5 
+nnoremap <C-left> :vertical resize -5<cr>
+nnoremap <C-down> :resize +5<cr>
+nnoremap <C-up> :resize -5<cr>
+nnoremap <C-right> :vertical resize +5<cr>
